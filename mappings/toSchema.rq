@@ -1,0 +1,56 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+PREFIX ex: <http://example.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX edmfp:<http://www.europeanafashion.eu/edmfp/>
+
+CONSTRUCT {
+  ?uri a schema:CreativeWork ;
+     schema:name ?title ;
+     schema:image ?img_uri ;
+     schema:publisher ?publisher_uri ;
+     schema:description ?description ;
+     schema:additionalType ?dctype;
+     edmfp:technique ?technique ;
+     schema:material ?material ;
+     schema:dateCreated ?datecreated .
+  
+  ?img_uri a schema:ImageObject ;
+     schema:contentUrl ?image_url ;
+     schema:encondingFormat "image/jpeg" ;
+     schema:license ?license .
+  
+  ?publisher_uri a schema:Organization ;
+     schema:name ?publisher_name .
+}
+WHERE {
+  ?nr ex:global_identifier ?g_identifier ;
+      ex:title ?title .
+  BIND(URI(?g_identifier) as ?uri)
+  OPTIONAL { ?nr ex:publisher ?publisher }
+  OPTIONAL { 
+    ?nr ex:dctype1|ex:dctype2 ?dctypestr 
+    BIND (IF(CONTAINS(?dctypestr,"http://"), URI(?dctypestr),?dctypestr ) AS ?dctype)
+  }
+  OPTIONAL { 
+    ?nr ex:technique1|ex:technique2 ?techniquestr 
+    BIND (IF(CONTAINS(?techniquestr,"http://"), URI(?techniquestr),?techniquestr ) AS ?technique)
+  }
+  OPTIONAL { 
+    ?nr ex:material1|ex:material2 ?materialstr 
+    BIND (IF(CONTAINS(?materialstr,"http://"), URI(?materialstr),?materialstr ) AS ?material)
+  }
+  OPTIONAL { ?nr ex:identifier ?indentifier }
+  OPTIONAL { ?nr ex:datecreated ?datecreated }
+  OPTIONAL { ?nr ex:description ?description }
+  OPTIONAL { ?nr ex:license ?license }
+  OPTIONAL { ?nr ex:image_url ?image_url }
+  OPTIONAL { 
+    ?nr ex:image_identifier ?image_identifier
+    BIND(URI(?image_identifier) as ?img_uri)
+  }
+  OPTIONAL {
+   ?publisher ex:publisher_uri ?publisher_uri ;
+              ex:publisher_name ?publisher_name .
+  }
+}

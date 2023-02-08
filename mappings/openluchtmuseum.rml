@@ -1,0 +1,60 @@
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix csvw: <http://www.w3.org/ns/csvw#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <http://example.org/rules/>.
+@prefix schema: <http://schema.org/>.
+@prefix dbo: <http://dbpedia.org/ontology/>.
+
+:TriplesMap rdf:type rr:TriplesMap;
+    rml:logicalSource [
+  rml:source [
+  rdf:type csvw:Table;
+  csvw:url "./sources/Nederlands Openluchtmuseum.csv";
+  csvw:dialect [
+  rdf:type csvw:Dialect;
+  csvw:delimiter ",";
+  csvw:encoding "UTF-8"
+]
+];
+  rml:referenceFormulation ql:CSV
+];
+    rr:subjectMap [ rr:template "http://example.org/dordrechtsmuseum/id/{File}" ];
+    rr:predicateObjectMap [
+  rr:predicate <http://example.org/global_identifier>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - rdf:about" ]
+], [
+  rr:predicate <http://example.org/technique2>;
+  rr:objectMap [ rml:reference "edmfp:technique_URI" ]
+], [
+  rr:predicate <http://example.org/material2>;
+  rr:objectMap [ rml:reference "dcterms:medium_URI" ]
+], [
+  rr:predicate <http://example.org/dctype1>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - dc:type - skos:Concept - rdf:about" ]
+], [
+  rr:predicate <http://example.org/description>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - dc:description" ]
+], [
+  rr:predicate <http://example.org/title>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - dc:title" ]
+], [
+  rr:predicate <http://example.org/identifier>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - dc:identifier" ]
+], [
+  rr:predicate <http://example.org/datecreated>;
+  rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - dcterms:created" ]
+], [
+  rr:predicate <http://example.org/image_url>;
+  rr:objectMap [ rml:reference "rdf:RDF - ore:Aggregation - edm:hasView - edm:WebResource - rdf:about" ]
+], [
+  rr:predicate <http://example.org/license>;
+  rr:objectMap [ rml:reference "rdf:RDF - ore:Aggregation - edm:rights - rdf:resource" ]
+], [
+  rr:predicate <http://example.org/image_identifier>;
+  rr:objectMap [ rml:reference "rdf:RDF - ore:Aggregation - edm:isShownBy - edm:WebResource - rdf:about" ]
+], [
+  rr:predicate <http://example.org/publisher>;
+  rr:objectMap [ rr:template "http://example.org/openluchtmuseum/publisher" ]
+].
