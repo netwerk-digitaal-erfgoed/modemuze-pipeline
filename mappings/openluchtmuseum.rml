@@ -20,7 +20,7 @@
 ];
   rml:referenceFormulation ql:CSV
 ];
-    rr:subjectMap [ rr:template "http://example.org/dordrechtsmuseum/id/{File}" ];
+    rr:subjectMap [ rr:template "http://example.org/openluchtmuseum/id/{File}" ];
     rr:predicateObjectMap [
   rr:predicate <http://example.org/global_identifier>;
   rr:objectMap [ rml:reference "rdf:RDF - edm:ProvidedCHO - rdf:about" ]

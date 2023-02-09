@@ -8,6 +8,7 @@ CONSTRUCT {
   ?uri a schema:CreativeWork ;
      schema:name ?title ;
      schema:image ?img_uri ;
+     schema:identifier ?identifier ;
      schema:publisher ?publisher_uri ;
      schema:description ?description ;
      schema:additionalType ?dctype;
@@ -40,7 +41,7 @@ WHERE {
     ?nr ex:material1|ex:material2 ?materialstr 
     BIND (IF(CONTAINS(?materialstr,"http://"), URI(?materialstr),?materialstr ) AS ?material)
   }
-  OPTIONAL { ?nr ex:identifier ?indentifier }
+  OPTIONAL { ?nr ex:identifier ?identifier }
   OPTIONAL { ?nr ex:datecreated ?datecreated }
   OPTIONAL { ?nr ex:description ?description }
   OPTIONAL { ?nr ex:license ?license }
